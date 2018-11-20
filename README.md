@@ -38,12 +38,11 @@ create the db:
 create database repositoryds;
 ```
 
-To be able to work with the docker daemon on your mac/linux host use the docker-env command in your shell
-```bash
-eval $(minikube docker-env)
-```
+# Deployment/Working options
 
-# Local dev
+See "Local dev" OR "Local cluster" below.
+
+## Local dev
 
 Port-forward from localhost to cockroachdb service within cluster:
 
@@ -62,15 +61,18 @@ Run
 ```bash
 mvn clean verify && mvn -Pcargo.run
 ```
-# Deploying
+## Local cluster
+
+To be able to work with the docker daemon on your mac/linux host use the docker-env command in your shell
+```bash
+eval $(minikube docker-env)
+```
 
 Build hippo project, and build docker image
 
 ```bash
 ./build.sh
 ```
-
-Deploy hippo in the cluster
 
 Change the conf/context.xml connection string :
 
@@ -80,6 +82,7 @@ url="jdbc:postgresql://mycockroach-cockroachdb-public.default.svc.cluster.local:
 <!--snip-->
 
 ```
+Deploy:
 
 ```bash
 kubectl apply -f kubernetes/hippo-deployment.yaml
