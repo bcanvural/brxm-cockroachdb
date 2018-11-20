@@ -28,9 +28,8 @@
       minEvictableIdleTimeMillis="60000"
       username="root" password=""
       driverClassName="org.postgresql.Driver"
-      url="jdbc:postgresql://localhost:26257/repositoryds" />
-      <!--url="jdbc:postgresql://mycockroach-cockroachdb-public.default.svc.cluster.local:26257/repositoryds" />-->
-
+      url="jdbc:postgresql://mycockroach-cockroachdb-public.default.svc.cluster.local:26257/repositoryds" />
+      <!--url="jdbc:postgresql://localhost:26257/repositoryds" />-->
 
 
 </Context>

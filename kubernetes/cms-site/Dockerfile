@@ -20,7 +20,7 @@ ENV MIN_HEAP_SIZE "1024m"
 ENV MAX_HEAP_SIZE "2048m"
 
 # Repository Configuration File
-ARG REPOSITORY_XML=tomcat/conf/repository-mysql.xml
+ARG REPOSITORY_XML=tomcat/conf/repository.xml
 COPY ${REPOSITORY_XML} ${CATALINA_BASE}/conf/repository.xml
 ENV REPO_CONFIG "file:${CATALINA_BASE}/conf/repository.xml"
 
@@ -55,7 +55,6 @@ COPY ${INDEX_INIT_SH} ${CATALINA_BASE}/bin/
 RUN apt-get update && apt-get -y install unzip
 COPY tomcat/bin/exim.sh ${CATALINA_BASE}/bin/
 
-#COPY mysql-connector-java-5.1.46.jar ${CATALINA_BASE}/common/lib/mysql-connector-java-5.1.46.jar
-COPY postgresql-9.1-901-1.jdbc4.jar ${CATALINA_BASE}/common/lib/postgresql-9.1-901-1.jdbc4.jar
+COPY postgresql-42.2.5.jar ${CATALINA_BASE}/common/lib/postgresql-42.2.5.jar
 ARG TAR_BALL=*.tar.gz
 ADD ${TAR_BALL} ${CATALINA_BASE}/

@@ -24,7 +24,7 @@ Start cockroachdb cluster
 kubernetes/install_cockroach.sh
 ```
 
-Port-forward from localhost to cockroachdb service within cluster:
+Port-forward from localhost to cockroachdb service within cluster (Only for local dev):
 
 ```bash
 kubectl port-forward svc/mycockroach-cockroachdb-public 26257:26257
@@ -36,6 +36,20 @@ To be able to work with the docker daemon on your mac/linux host use the docker-
 eval $(minikube docker-env)
 ```
 
+#Local dev
+Change the conf/context.xml connection string to localhost one:
+```xml
+<!--snip-->
+...
+url="jdbc:postgresql://localhost:26257/repositoryds">
+<!--snip-->
+```
+Run 
+```bash
+mvn clean verify && mvn -Pcargo.run
+```
+# Deploying
+
 Build hippo project, and build docker image
 
 ```bash
@@ -43,6 +57,15 @@ Build hippo project, and build docker image
 ```
 
 Deploy hippo in the cluster
+
+Change the conf/context.xml connection string :
+
+```xml
+<!--snip-->
+url="jdbc:postgresql://mycockroach-cockroachdb-public.default.svc.cluster.local:26257/repositoryds"/>
+<!--snip-->
+
+```
 
 ```bash
 kubectl apply -f kubernetes/hippo-deployment.yaml
