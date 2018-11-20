@@ -1,0 +1,6 @@
+group: 
+  name: brxm-cockroachdb
+  after: hippo-cms
+project: brxm-cockroachdb
+module:
+  name: brxm-cockroachdb-repository-data-application

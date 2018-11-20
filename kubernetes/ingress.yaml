@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-site
+  annotations:
+    ingress.kubernetes.io/affinity: cookie
+    ingress.kubernetes.io/session-cookie-name: route
+    ingress.kubernetes.io/session-cookie-hash: sha1
+    nginx.ingress.kubernetes.io/rewrite-target: /site
+    ingress.kubernetes.io/proxy-cookie-path: "/site/ /"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: hippo.site
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hippo
+          servicePort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-cms
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    ingress.kubernetes.io/session-cookie-name: "route"
+    ingress.kubernetes.io/session-cookie-hash: "sha1"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: hippo.cms
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hippo
+          servicePort: 8080

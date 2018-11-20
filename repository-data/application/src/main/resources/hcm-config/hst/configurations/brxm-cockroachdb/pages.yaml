@@ -1,0 +1,4 @@
+definitions:
+  config:
+    /hst:hst/hst:configurations/brxmcockroachdb/hst:pages:
+      jcr:primaryType: hst:pages

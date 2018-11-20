@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hippo
+  labels:
+    app: hippo
+    tier: backend
+spec:
+  type: ClusterIP
+#  sessionAffinity: ClientIP #Ingress controller uses cookies for session affinity
+  ports:
+    - port: 8080
+  selector:
+    app: hippo
+    tier: backend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hippo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+          app: hippo
+  template:
+    metadata:
+      labels:
+        app: hippo
+        tier: backend
+    spec:
+      containers:
+        - name: hippo
+          image: dev/brxm-cockroachdb:v1 #Point to a public docker image registry
+          env:
+            - name: "JAVA_ENABLE_DEBUG"
+              value: "true" #Set to true for remote debugger
+            - name: "REPO_BOOTSTRAP"
+              value: "true"
+          ports:
+            - containerPort: 8080
+            - containerPort: 5005
+              name: "jvm-debug" #Uncomment two lines for remote debugger
+          readinessProbe:
+            httpGet:
+              path: /cms/ping/
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 18 # wait at most 4 minutes for readiness
+          livenessProbe:
+            httpGet:
+              path: /cms/ping/
+              port: 8080
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            failureThreshold: 5
+

@@ -1,0 +1,5 @@
+group: 
+  name: brxm-cockroachdb
+  after: hippo-cms
+project: brxm-cockroachdb
+module: brxm-cockroachdb-repository-data-webfiles
