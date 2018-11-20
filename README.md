@@ -24,19 +24,19 @@ Start cockroachdb cluster
 kubernetes/install_cockroach.sh
 ```
 
-Port-forward from localhost to cockroachdb service within cluster (Only for local dev):
-
-```bash
-kubectl port-forward svc/mycockroach-cockroachdb-public 26257:26257
-```
-
-
 To be able to work with the docker daemon on your mac/linux host use the docker-env command in your shell
 ```bash
 eval $(minikube docker-env)
 ```
 
-#Local dev
+# Local dev
+
+Port-forward from localhost to cockroachdb service within cluster:
+
+```bash
+kubectl port-forward svc/mycockroach-cockroachdb-public 26257:26257
+```
+
 Change the conf/context.xml connection string to localhost one:
 ```xml
 <!--snip-->
