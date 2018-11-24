@@ -50,6 +50,8 @@ Port-forward from localhost to cockroachdb service within cluster:
 kubectl port-forward svc/mycockroach-cockroachdb-public 26257:26257
 ```
 
+This will only connect to a single node! If that node goes down, CMS goes down.
+
 Change the conf/context.xml connection string to localhost one:
 ```xml
 <!--snip-->
@@ -61,7 +63,7 @@ Run
 ```bash
 mvn clean verify && mvn -Pcargo.run
 ```
-## Local cluster
+## Local cluster (better for HA)
 
 To be able to work with the docker daemon on your mac/linux host use the docker-env command in your shell
 ```bash
